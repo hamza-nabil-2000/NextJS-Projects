@@ -1,23 +1,38 @@
 import { useState } from "react";
 
 const RestaurantSignUp = () => {
-  const [name, setName] = useState("");
-
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
 
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [c_password, setC_password] = useState("");
+
+  const [name, setName] = useState("");
 
   const [city, setCity] = useState("");
 
   const [address, setAddress] = useState("");
 
-  const [mobile, setMobile] = useState("");
+  const [contact, setContact] = useState("");
 
-  const handleSignUp = () => {
-    // Handle sign-up logic here
-    console.log(email, password, confirmPassword, name, city, address, mobile);
+  const handleSignUp = async () => {
+    console.log(email, password, c_password, name, city, address, contact);
+    let result = await fetch("/api/restaurant", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+        name,
+        city,
+        address,
+        contact,
+      }),
+    });
+    const response = await result.json();
+    console.log(result);
+    if (response.success) {
+      alert("Restaurant Registered Successful");
+    }
   };
 
   return (
@@ -59,8 +74,8 @@ const RestaurantSignUp = () => {
           <input
             type="password"
             className="input-field"
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
+            value={c_password}
+            onChange={(event) => setC_password(event.target.value)}
             placeholder="Confirm Password"
           />
         </div>
@@ -89,8 +104,8 @@ const RestaurantSignUp = () => {
           <input
             type="tel"
             className="input-field"
-            value={mobile}
-            onChange={(event) => setMobile(event.target.value)}
+            value={contact}
+            onChange={(event) => setContact(event.target.value)}
             placeholder="Mobile"
           />
         </div>
