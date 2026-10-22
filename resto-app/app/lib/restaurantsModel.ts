@@ -1,9 +1,9 @@
-const { default: mongoose } = require("mongoose");
+import mongoose from "mongoose";
 
 const restaurantModel = new mongoose.Schema({
   name: String,
   email: String,
-  password: String,
+  password: { type: String, select: false },
   city: String,
   address: String,
   contact: String,

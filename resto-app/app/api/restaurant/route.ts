@@ -6,33 +6,44 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   await mongoose.connect(connectionStr);
-  const data = await restaurantSchema.find();
-  console.log(data);
+  const data = await restaurantSchema.find().select("-password");
 
   return NextResponse.json({ result: data });
 }
 
 export async function POST(request: Request) {
-  let payload = await request.json();
+  const payload = await request.json();
+  if (!payload || typeof payload.email !== "string" ||
+      typeof payload.password !== "string" || !payload.password) {
+    return NextResponse.json({ success: false, result: null }, { status: 400 });
+  }
   let result;
   let success = false;
   await mongoose.connect(connectionStr);
 
   if (payload.login) {
-    result = await restaurantSchema.findOne({
+    const restaurant = await restaurantSchema.findOne({
       email: payload.email,
-      password: payload.password,
-    });
-    if (result) {
+    }).select("+password");
+    if (restaurant && restaurant.password === payload.password) {
+      result = restaurant.toObject();
       success = true;
     }
   } else {
-    const restaurant = new restaurantSchema(payload);
-    result = await restaurant.save();
+    const restaurant = new restaurantSchema({
+      name: payload.name,
+      email: payload.email,
+      password: payload.password,
+      city: payload.city,
+      address: payload.address,
+      contact: payload.contact,
+    });
+    result = (await restaurant.save()).toObject();
     if (result) {
       success = true;
     }
   }
 
-  return NextResponse.json({ result, success });
+  if (result) delete result.password;
+  return NextResponse.json({ result: result ?? null, success });
 }
