@@ -1,7 +1,7 @@
 const RestaurantLogin = () => {
   return (
     <>
-      <h3>Login Component</h3>
+      <h3>Login</h3>
 
       <div>
         <div className="input-wrapper">

@@ -44,7 +44,7 @@ const RestaurantSignUp = () => {
 
   return (
     <>
-      <h3>SignUp Component</h3>
+      <h3>SignUp</h3>
 
       <div>
         <div className="input-wrapper">
