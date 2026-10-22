@@ -18,7 +18,32 @@ const RestaurantSignUp = () => {
 
   const router = useRouter();
 
+  const [error, setError] = useState(false);
+
+  const [passwordError, setPasswordError] = useState(false);
+
   const handleSignUp = async () => {
+    if (password !== c_password) {
+      setPasswordError(true);
+      return false;
+    } else {
+      setPasswordError(false);
+    }
+    if (
+      !email ||
+      !password ||
+      !c_password ||
+      !name ||
+      !city ||
+      !address ||
+      !contact
+    ) {
+      setError(true);
+      return false;
+    } else {
+      setError(false);
+    }
+
     const response = await fetch("/api/restaurant", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -49,22 +74,16 @@ const RestaurantSignUp = () => {
       <div>
         <div className="input-wrapper">
           <input
-            type="text"
-            className="input-field"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            placeholder="Name"
-          />
-        </div>
-
-        <div className="input-wrapper">
-          <input
             type="email"
             className="input-field"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="Email"
           />
+
+          {error && !email && (
+            <span className="input-error">Please enter valid email</span>
+          )}
         </div>
 
         <div className="input-wrapper">
@@ -75,6 +94,16 @@ const RestaurantSignUp = () => {
             onChange={(event) => setPassword(event.target.value)}
             placeholder="Password"
           />
+
+          {passwordError && (
+            <span className="input-error">
+              Password and Confirm Password do not match.
+            </span>
+          )}
+
+          {error && !password && (
+            <span className="input-error">Please enter valid password</span>
+          )}
         </div>
 
         <div className="input-wrapper">
@@ -85,6 +114,32 @@ const RestaurantSignUp = () => {
             onChange={(event) => setC_password(event.target.value)}
             placeholder="Confirm Password"
           />
+
+          {passwordError && (
+            <span className="input-error">
+              Password and Confirm Password do not match.
+            </span>
+          )}
+
+          {error && !c_password && (
+            <span className="input-error">
+              Please enter valid confirm password
+            </span>
+          )}
+        </div>
+
+        <div className="input-wrapper">
+          <input
+            type="text"
+            className="input-field"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            placeholder="Name"
+          />
+
+          {error && !name && (
+            <span className="input-error">Please enter valid name</span>
+          )}
         </div>
 
         <div className="input-wrapper">
@@ -95,6 +150,10 @@ const RestaurantSignUp = () => {
             onChange={(event) => setCity(event.target.value)}
             placeholder="City"
           />
+
+          {error && !city && (
+            <span className="input-error">Please enter valid city</span>
+          )}
         </div>
 
         <div className="input-wrapper">
@@ -105,6 +164,10 @@ const RestaurantSignUp = () => {
             onChange={(event) => setAddress(event.target.value)}
             placeholder="Address"
           />
+
+          {error && !address && (
+            <span className="input-error">Please enter valid address</span>
+          )}
         </div>
 
         <div className="input-wrapper">
@@ -113,8 +176,14 @@ const RestaurantSignUp = () => {
             className="input-field"
             value={contact}
             onChange={(event) => setContact(event.target.value)}
-            placeholder="Mobile"
+            placeholder="Contact"
           />
+
+          {error && !contact && (
+            <span className="input-error">
+              Please enter valid contact number
+            </span>
+          )}
         </div>
 
         <div className="input-wrapper">
