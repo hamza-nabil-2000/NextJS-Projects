@@ -5,7 +5,7 @@ const Dashboard = () => {
   return (
     <div>
       <RestaurantHeader />
-      <h1>Welcome to Dashboard</h1>
+      <h1>Restaurant Dashboard</h1>
     </div>
   );
 };
