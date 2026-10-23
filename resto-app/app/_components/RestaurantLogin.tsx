@@ -3,8 +3,15 @@ import { useState } from "react";
 const RestaurantLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const handleLogin = () => {
+    if (!email || !password) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+
     console.log(email, password);
   };
 
@@ -21,6 +28,9 @@ const RestaurantLogin = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
           />
+          {error && !email && (
+            <span className="input-error">Please Enter Valid Email.</span>
+          )}
         </div>
 
         <div className="input-wrapper">
@@ -31,6 +41,10 @@ const RestaurantLogin = () => {
             onChange={(event) => setPassword(event.target.value)}
             placeholder="Password"
           />
+
+          {error && !password && (
+            <span className="input-error">Please Enter Valid Password.</span>
+          )}
         </div>
 
         <div className="input-wrapper">
