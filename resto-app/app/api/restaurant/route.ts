@@ -1,4 +1,3 @@
-
 import { connectionStr } from "@/app/lib/db";
 import { restaurantSchema } from "@/app/lib/restaurantsModel";
 import mongoose from "mongoose";
@@ -13,8 +12,12 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const payload = await request.json();
-  if (!payload || typeof payload.email !== "string" ||
-      typeof payload.password !== "string" || !payload.password) {
+  if (
+    !payload ||
+    typeof payload.email !== "string" ||
+    typeof payload.password !== "string" ||
+    !payload.password
+  ) {
     return NextResponse.json({ success: false, result: null }, { status: 400 });
   }
   let result;
@@ -22,9 +25,11 @@ export async function POST(request: Request) {
   await mongoose.connect(connectionStr);
 
   if (payload.login) {
-    const restaurant = await restaurantSchema.findOne({
-      email: payload.email,
-    }).select("+password");
+    const restaurant = await restaurantSchema
+      .findOne({
+        email: payload.email,
+      })
+      .select("+password");
     if (restaurant && restaurant.password === payload.password) {
       result = restaurant.toObject();
       success = true;
