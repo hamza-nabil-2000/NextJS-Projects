@@ -25,3 +25,10 @@
   margin: 20px;
   font-size: 16px;
 }
+
+.input-error {
+  position: absolute;
+  padding: 8px;
+  color: red;
+  font-size: 13px;
+}

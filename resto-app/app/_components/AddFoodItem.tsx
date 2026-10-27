@@ -7,9 +7,16 @@ const AddFoodItem = () => {
   const [price, setPrice] = useState("");
   const [path, setPath] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState(false);
 
   const handleAddFoodItem = async () => {
     console.log(name, price, path, description);
+    if (!name || !path || !price || description) {
+      setError(true);
+      return false;
+    } else {
+      setError(false);
+    }
     let resto_id;
     const restaurantData = JSON.parse(
       localStorage.getItem("restaurantUser") ?? "null",
@@ -31,6 +38,8 @@ const AddFoodItem = () => {
     const result = await response.json();
     if (result.success) {
       alert("Food Item Added");
+    } else {
+      alert("Food Item not Added");
     }
   };
 
@@ -45,6 +54,9 @@ const AddFoodItem = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        {error && !name && (
+          <span className="input-error">Please Enter Valid Name</span>
+        )}
       </div>
 
       <div className="input-wrapper">
@@ -55,6 +67,9 @@ const AddFoodItem = () => {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
+        {error && !price && (
+          <span className="input-error">Please Enter Valid Price</span>
+        )}
       </div>
 
       <div className="input-wrapper">
@@ -65,6 +80,9 @@ const AddFoodItem = () => {
           value={path}
           onChange={(e) => setPath(e.target.value)}
         />
+        {error && !path && (
+          <span className="input-error">Please Enter Valid Path</span>
+        )}
       </div>
 
       <div className="input-wrapper">
@@ -75,6 +93,9 @@ const AddFoodItem = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+        {error && !description && (
+          <span className="input-error">Please Enter Valid Description</span>
+        )}
       </div>
 
       <div className="input-wrapper">
