@@ -14,23 +14,35 @@ const FoodItemList = () => {
   const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
 
   useEffect(() => {
-    const loadFoodItems = async () => {
-      const restaurantData = JSON.parse(
-        localStorage.getItem("restaurantUser") ?? "null",
-      );
-      const resto_id = restaurantData._id;
-      const response = await fetch(`/api/restaurant/foods/${resto_id}`);
-      const data: { success: boolean; result: FoodItem[] } =
-        await response.json();
-      if (data.success) {
-        setFoodItems(data.result);
-      } else {
-        alert("Food Item List not Loading");
-      }
-    };
-
     loadFoodItems();
   }, []);
+
+  const loadFoodItems = async () => {
+    const restaurantData = JSON.parse(
+      localStorage.getItem("restaurantUser") ?? "null",
+    );
+    const resto_id = restaurantData._id;
+    let response = await fetch(`/api/restaurant/foods/${resto_id}`);
+    const data: { success: boolean; result: FoodItem[] } =
+      await response.json();
+    if (data.success) {
+      setFoodItems(data.result);
+    } else {
+      alert("Food Item List not Loading");
+    }
+  };
+
+  const deleteFoodItems = async (id: String) => {
+    let response = await fetch(`/api/restaurant/foods/${id}`, {
+      method: "delete",
+    });
+    const data: { success: boolean } = await response.json();
+    if (data.success) {
+      loadFoodItems();
+    } else {
+      alert("Food Item not Deleted");
+    }
+  };
 
   return (
     <div>
@@ -59,7 +71,9 @@ const FoodItemList = () => {
                 </td>
                 <td>
                   <button>Edit</button>
-                  <button>Delete</button>
+                  <button onClick={() => deleteFoodItems(item._id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

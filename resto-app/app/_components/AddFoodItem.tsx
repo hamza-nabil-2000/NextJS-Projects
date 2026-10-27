@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const AddFoodItem = () => {
+const AddFoodItem = (props: { setAddItem: (open: boolean) => void }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [path, setPath] = useState("");
@@ -38,6 +38,7 @@ const AddFoodItem = () => {
       const result = await response.json().catch(() => null);
       if (response.ok && result?.success) {
         alert("Food Item Added");
+        props.setAddItem(false);
       } else {
         alert("Food Item not Added");
       }
