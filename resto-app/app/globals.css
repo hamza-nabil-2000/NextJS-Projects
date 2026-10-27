@@ -32,3 +32,15 @@
   color: red;
   font-size: 13px;
 }
+
+table,
+th,
+td {
+  border: 1px solid;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+table td button {
+  margin: 5px;
+}
