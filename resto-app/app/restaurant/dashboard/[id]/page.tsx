@@ -17,7 +17,7 @@ const EditFoodItem = () => {
   }, [id]);
 
   const handleLoadFootItem = async (id: string) => {
-    const response = await fetch(`/api/restaurant/foods/edit/${id}`);
+    let response = await fetch(`/api/restaurant/foods/edit/${id}`);
     const data = await response.json();
     if (data.success) {
       console.log(data.result);
@@ -34,6 +34,22 @@ const EditFoodItem = () => {
       return false;
     } else {
       setError(false);
+    }
+
+    let response = await fetch(`/api/restaurant/foods/edit/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        name,
+        price,
+        img_path: path,
+        description,
+      }),
+    });
+    const data = await response.json();
+    if (data.success) {
+      router.push("../dashboard");
+    } else {
+      alert("Data is not Updated Please Try Again");
     }
   };
 
