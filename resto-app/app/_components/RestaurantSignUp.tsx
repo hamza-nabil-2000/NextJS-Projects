@@ -3,26 +3,17 @@ import { useState } from "react";
 
 const RestaurantSignUp = () => {
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [c_password, setC_password] = useState("");
-
   const [name, setName] = useState("");
-
-  const [city, setCity] = useState("");
-
+  const [city, setcity] = useState("");
   const [address, setAddress] = useState("");
-
   const [contact, setContact] = useState("");
-
   const router = useRouter();
-
   const [error, setError] = useState(false);
-
   const [passwordError, setPasswordError] = useState(false);
 
-  const handleSignUp = async () => {
+  const handleSignup = async () => {
     if (password !== c_password) {
       setPasswordError(true);
       return false;
@@ -44,25 +35,17 @@ const RestaurantSignUp = () => {
       setError(false);
     }
 
+    console.log(email, password, c_password, name, city, address, contact);
     const response = await fetch("/api/restaurant", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-        name,
-        city,
-        address,
-        contact,
-      }),
+      body: JSON.stringify({ email, password, name, city, address, contact }),
     });
-    const result = await response.json();
-    if (response.ok && result.success && result.result) {
-      setPassword("");
-      setC_password("");
-      const { result: response1 } = result;
-      delete response1.password;
-      localStorage.setItem("restaurantUser", JSON.stringify(response1));
+    const data = await response.json();
+    console.log(data);
+    if (data.success) {
+      const { result } = data;
+      delete result.password;
+      localStorage.setItem("restaurantUser", JSON.stringify(result));
       router.push("/restaurant/dashboard");
     }
   };
@@ -70,60 +53,53 @@ const RestaurantSignUp = () => {
   return (
     <>
       <h3> Signup </h3>
-
       <div>
         <div className="input-wrapper">
           <input
-            type="email"
+            type="text"
+            placeholder="Enter email id"
             className="input-field"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            placeholder="Email"
           />
-
           {error && !email && (
-            <span className="input-error">Please enter valid email</span>
+            <span className="input-error">Please enter valid email </span>
           )}
         </div>
-
         <div className="input-wrapper">
           <input
             type="password"
+            placeholder="Enter password"
             className="input-field"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            placeholder="Password"
           />
-
           {passwordError && (
             <span className="input-error">
-              Password and Confirm Password do not match.
+              Password and Confirm password not match{" "}
             </span>
           )}
-
           {error && !password && (
-            <span className="input-error">Please enter valid password</span>
+            <span className="input-error">Please enter valid password </span>
           )}
         </div>
 
         <div className="input-wrapper">
           <input
             type="password"
+            placeholder="Confirm password"
             className="input-field"
             value={c_password}
             onChange={(event) => setC_password(event.target.value)}
-            placeholder="Confirm Password"
           />
-
           {passwordError && (
             <span className="input-error">
-              Password and Confirm Password do not match.
+              Password and Confirm password not match{" "}
             </span>
           )}
-
           {error && !c_password && (
             <span className="input-error">
-              Please enter valid confirm password
+              Please enter valid confirm password{" "}
             </span>
           )}
         </div>
@@ -131,64 +107,55 @@ const RestaurantSignUp = () => {
         <div className="input-wrapper">
           <input
             type="text"
+            placeholder="Enter restaurant name"
             className="input-field"
             value={name}
             onChange={(event) => setName(event.target.value)}
-            placeholder="Name"
           />
-
           {error && !name && (
-            <span className="input-error">Please enter valid name</span>
+            <span className="input-error">Please enter name email </span>
           )}
         </div>
-
         <div className="input-wrapper">
           <input
             type="text"
+            placeholder="Enter city "
             className="input-field"
             value={city}
-            onChange={(event) => setCity(event.target.value)}
-            placeholder="City"
+            onChange={(event) => setcity(event.target.value)}
           />
-
           {error && !city && (
-            <span className="input-error">Please enter valid city</span>
+            <span className="input-error">Please enter valid city </span>
           )}
         </div>
-
         <div className="input-wrapper">
           <input
             type="text"
+            placeholder="Enter full address"
             className="input-field"
             value={address}
             onChange={(event) => setAddress(event.target.value)}
-            placeholder="Address"
           />
-
           {error && !address && (
-            <span className="input-error">Please enter valid address</span>
+            <span className="input-error">Please enter valid address </span>
           )}
         </div>
-
         <div className="input-wrapper">
           <input
-            type="tel"
+            type="text"
+            placeholder="Enter contact No"
             className="input-field"
             value={contact}
             onChange={(event) => setContact(event.target.value)}
-            placeholder="Contact"
           />
-
           {error && !contact && (
-            <span className="input-error">
-              Please enter valid contact number
-            </span>
+            <span className="input-error">Please enter valid contact </span>
           )}
         </div>
 
         <div className="input-wrapper">
-          <button className="button" onClick={handleSignUp}>
-            Sign Up
+          <button className="button" onClick={handleSignup}>
+            Sign up
           </button>
         </div>
       </div>
