@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type FoodItem = {
@@ -12,6 +13,7 @@ type FoodItem = {
 
 const FoodItemList = () => {
   const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     loadFoodItems();
@@ -70,7 +72,9 @@ const FoodItemList = () => {
                   <img src={item.img_path} alt="" />
                 </td>
                 <td>
-                  <button>Edit</button>
+                  <button onClick={() => router.push("dashboard/" + item._id)}>
+                    Edit
+                  </button>
                   <button onClick={() => deleteFoodItems(item._id)}>
                     Delete
                   </button>
