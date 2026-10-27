@@ -16,8 +16,10 @@ const RestaurantHeader = () => {
       router.push("/restaurant/dashboard");
     } else if (data) {
       setDetails(JSON.parse(data));
+    } else {
+      setDetails(undefined);
     }
-  }, []);
+  }, [pathName, router]);
 
   const logout = () => {
     localStorage.removeItem("restaurantUser");
