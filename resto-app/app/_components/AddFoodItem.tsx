@@ -10,36 +10,39 @@ const AddFoodItem = () => {
   const [error, setError] = useState(false);
 
   const handleAddFoodItem = async () => {
-    console.log(name, price, path, description);
-    if (!name || !path || !price || description) {
+    if (!name || !path || !price || !description) {
       setError(true);
       return false;
     } else {
       setError(false);
     }
-    let resto_id;
-    const restaurantData = JSON.parse(
-      localStorage.getItem("restaurantUser") ?? "null",
-    );
-    if (restaurantData) {
-      resto_id = restaurantData._id;
-    }
-    const response = await fetch("/api/foods", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        price,
-        resto_id,
-        img_path: path,
-        description,
-      }),
-    });
-    const result = await response.json();
-    if (result.success) {
-      alert("Food Item Added");
-    } else {
-      alert("Food Item not Added");
+    try {
+      let resto_id;
+      const restaurantData = JSON.parse(
+        localStorage.getItem("restaurantUser") ?? "null",
+      );
+      if (restaurantData) {
+        resto_id = restaurantData._id;
+      }
+      const response = await fetch("/api/restaurant/foods", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          price,
+          resto_id,
+          img_path: path,
+          description,
+        }),
+      });
+      const result = await response.json().catch(() => null);
+      if (response.ok && result?.success) {
+        alert("Food Item Added");
+      } else {
+        alert("Food Item not Added");
+      }
+    } catch {
+      alert("Food item could not be added. Please try again.");
     }
   };
 
