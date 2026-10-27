@@ -16,3 +16,17 @@ export async function GET(
   }
   return NextResponse.json({ result, success });
 }
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  const { id } = await params;
+  let success = false;
+  await mongoose.connect(connectionStr);
+  const result = await foodSchema.deleteOne({ _id: id });
+  if (result) {
+    success = true;
+  }
+  return NextResponse.json({ result, success });
+}
