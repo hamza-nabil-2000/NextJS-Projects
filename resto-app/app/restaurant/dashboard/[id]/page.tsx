@@ -1,15 +1,32 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
-const EditFoodItem = (props: { setAddItem: (open: boolean) => void }) => {
+const EditFoodItem = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [path, setPath] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
   const router = useRouter();
+  const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    handleLoadFootItem(id);
+  }, [id]);
+
+  const handleLoadFootItem = async (id: string) => {
+    const response = await fetch(`/api/restaurant/foods/edit/${id}`);
+    const data = await response.json();
+    if (data.success) {
+      console.log(data.result);
+      setName(data.result.name);
+      setPrice(data.result.price);
+      setPath(data.result.img_path);
+      setDescription(data.result.description);
+    }
+  };
 
   const handleEditFoodItem = async () => {
     if (!name || !path || !price || !description) {
@@ -90,4 +107,10 @@ const EditFoodItem = (props: { setAddItem: (open: boolean) => void }) => {
   );
 };
 
-export default EditFoodItem;
+export default function EditFoodItemPage() {
+  return (
+    <Suspense fallback={<div className="container">Loading food item…</div>}>
+      <EditFoodItem />
+    </Suspense>
+  );
+}
