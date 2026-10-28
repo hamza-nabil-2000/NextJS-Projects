@@ -110,24 +110,78 @@ table img {
 }
 
 .input-wrapper-cus {
+  display: flex;
+  box-sizing: border-box;
   background-color: white;
   padding: 5px;
   border: 1px solid #ccc;
   margin: auto;
-  width: 70%;
+  width: 60%;
+}
+
+.location-picker {
+  position: relative;
+  flex: 0 0 35%;
+  min-width: 0;
 }
 
 .select-input {
+  box-sizing: border-box;
   height: 40px;
   border: none;
-  width: 30%;
+  width: 100%;
   padding-left: 15px;
+  cursor: pointer;
 }
 
 .search-input {
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
   height: 40px;
   border: none;
-  width: 65%;
   border-left: 1px solid #ccc;
   padding-left: 15px;
+}
+
+.location-list {
+  box-sizing: border-box;
+  top: calc(100% + 5px);
+  left: -6px;
+  width: calc(100% + 6px);
+  z-index: 10;
+  max-height: 240px;
+  overflow-y: auto;
+  color: #000;
+  list-style-type: none;
+  text-align: left;
+  position: absolute;
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+}
+
+.location-list li {
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.location-list li:last-child {
+  border-bottom: none;
+}
+
+.location-list li:hover {
+  background-color: #f3f4f6;
+}
+
+@media (max-width: 640px) {
+  .input-wrapper-cus {
+    width: 100%;
+  }
+
+  .location-picker {
+    flex-basis: 40%;
+  }
 }
