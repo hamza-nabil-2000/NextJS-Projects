@@ -1,3 +1,18 @@
+html {
+  font-family: Aptos, Arial, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+*:focus {
+  outline: none;
+}
+
 .header-wrapper {
   display: flex;
   justify-content: space-between;
@@ -82,4 +97,37 @@ table td button {
 
 table img {
   width: 80px;
+}
+
+.main-page-banner {
+  background-image: url("https://a.storyblok.com/f/88809/1150x450/30a9c4f9a6/igevia_header_fastfood01_450.jpg");
+  background-color: rgb(0, 0, 0, 0.6);
+  background-blend-mode: multiply;
+  padding: 30px;
+  height: 230px;
+  color: white;
+  text-align: center;
+}
+
+.input-wrapper {
+  background-color: white;
+  padding: 5px;
+  border: 1px solid #ccc;
+  margin: auto;
+  width: 70%;
+}
+
+.select-input {
+  height: 40px;
+  border: none;
+  width: 30%;
+  padding-left: 15px;
+}
+
+.search-input {
+  height: 40px;
+  border: none;
+  width: 65%;
+  border-left: 1px solid #ccc;
+  padding-left: 15px;
 }
