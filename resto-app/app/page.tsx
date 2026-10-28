@@ -6,7 +6,7 @@ export default function Home() {
     <main>
       <div className="main-page-banner">
         <h1>Food Delivery App</h1>
-        <div className="input-wrapper">
+        <div className="input-wrapper-cus">
           <input
             type="text"
             className="select-input"
