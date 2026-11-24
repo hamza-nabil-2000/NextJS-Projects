@@ -9,9 +9,24 @@ const RestaurantSignUp = () => {
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
 
-  const handleSignup = () => {
-    // Handle signup logic here
+  const handleSignup = async () => {
     console.log(email, password, c_password, name, city, address, contact);
+    let result = await fetch("/api/restaurant", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+        name,
+        city,
+        address,
+        contact,
+      }),
+    });
+    result = await result.json();
+    console.log(result);
+    if (result.success) {
+      alert("Restaurant Registered Successfully!");
+    }
   };
 
   return (
