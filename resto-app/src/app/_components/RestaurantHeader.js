@@ -13,7 +13,7 @@ const RestaurantHeader = () => {
         </li>
 
         <li>
-          <Link href="/">Login/SignUp</Link>
+          <Link href="/">Login/Sign Up</Link>
         </li>
 
         <li>

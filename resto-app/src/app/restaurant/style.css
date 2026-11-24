@@ -16,11 +16,89 @@
     text-decoration: none;
 }
 
+.restaurant-page {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100dvh - 16px);
+}
+
 .footer-wrapper {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    margin-top: auto;
+    padding: 18px 16px;
+    border-top: 1px solid #d8e6ef;
+    border-radius: 8px 8px 0 0;
+    background-color: #f4f8fb;
+    color: #435568;
     text-align: center;
-    font-size: 10px;
-    background-color: white;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.footer-wrapper p {
+    margin: 0;
+}
+
+.footer-wrapper strong {
+    color: #2175a6;
+    font-weight: 700;
+}
+
+.restaurant-auth-title {
+    margin: 28px 16px 0;
+    color: #182638;
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    text-wrap: balance;
+}
+
+.restaurant-auth-title::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    margin: 14px auto 0;
+    border-radius: 3px;
+    background: #2175a6;
+}
+
+.restaurant-auth-heading {
+    margin: 22px 0 14px;
+    color: #182638;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.restaurant-auth-switch {
+    display: block;
+    width: var(--form-control-width);
+    max-width: calc(100% - 20px);
+    min-height: 40px;
+    box-sizing: border-box;
+    margin: 16px auto 32px;
+    padding: 8px;
+    border: 1px solid #c3addb;
+    border-radius: 8px;
+    background: #fff;
+    color: #525252;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+    cursor: pointer;
+}
+
+.restaurant-auth-switch strong {
+    color: #2175a6;
+    white-space: nowrap;
+}
+
+.restaurant-auth-switch:hover {
+    background: #f8f4fc;
+}
+
+.restaurant-auth-switch:focus-visible {
+    outline: 2px solid #551a8b;
+    outline-offset: 2px;
 }

@@ -1,8 +1,25 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const Footer = () => {
+  const [year, setYear] = useState(() => new Date().getFullYear());
+
+  useEffect(() => {
+    const updateYear = () => setYear(new Date().getFullYear());
+
+    updateYear();
+    const timer = window.setInterval(updateYear, 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
-    <div className="footer-wrapper">
-      <p>All Rights Reserved by Resto App</p>
-    </div>
+    <footer className="footer-wrapper">
+      <p>
+        © <span suppressHydrationWarning>{year}</span> All Rights Reserved by{" "}
+        <strong>Resto App</strong>
+      </p>
+    </footer>
   );
 };
 

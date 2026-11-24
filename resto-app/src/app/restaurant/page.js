@@ -11,22 +11,23 @@ import Footer from "../_components/Footer";
 const Restaurant = () => {
   const [login, setLogin] = useState(true);
   return (
-    <>
+    <div className="restaurant-page">
       <div className="container">
         <RestaurantHeader />
-        <h1>Restaurant Login/Signup Page</h1>
+        <h1 className="restaurant-auth-title">Restaurant Login &amp; Sign Up</h1>
         {login ? <RestaurantLogin /> : <RestaurantSignUp />}
 
-        <div>
-          <button className="button-link" onClick={() => setLogin(!login)}>
-            {login
-              ? "Do not have account? SignUp"
-              : "Already have Account? Login"}
-          </button>
-        </div>
+        <button
+          className="restaurant-auth-switch"
+          type="button"
+          onClick={() => setLogin((current) => !current)}
+        >
+          {login ? "Don’t have an account?" : "Already have an account?"}{" "}
+          <strong>{login ? "Sign Up" : "Log In"}</strong>
+        </button>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

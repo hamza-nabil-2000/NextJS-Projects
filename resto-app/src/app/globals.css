@@ -1,3 +1,7 @@
+:root {
+  --form-control-width: 210px;
+}
+
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -15,23 +19,34 @@ textarea {
 }
 
 .input-field {
-  width: 200px;
-  height: 30px;
+  width: var(--form-control-width);
+  height: 36px;
+  padding: 4px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 13.3333px;
 }
 
 .button {
-  width: 200px;
-  height: 30px;
+  width: var(--form-control-width);
+  height: 36px;
 }
 
 .container {
   text-align: center;
 }
 
-.button-link {
-  border: 0;
-  cursor: pointer;
-  background-color: transparent;
-  color: skyblue;
-  margin: 20px;
+textarea.input-field {
+  resize: none;
+  height: 36px;
+  min-height: 36px;
+  padding: 8px 4px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 13.3333px;
+  line-height: 18px;
+  vertical-align: top;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
