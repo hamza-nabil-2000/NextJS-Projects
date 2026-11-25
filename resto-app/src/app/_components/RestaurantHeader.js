@@ -4,7 +4,7 @@ const RestaurantHeader = () => {
   return (
     <div className="header-wrapper">
       <div className="logo">
-        <img style={{ width: 100 }} src="header.jpeg" />
+        <img style={{ width: 100 }} src="/header.png" alt="Resto App" />
       </div>
 
       <ul>
