@@ -110,3 +110,10 @@
     outline: 2px solid #551a8b;
     outline-offset: 2px;
 }
+
+.input-error {
+    position: absolute;
+    padding: 8px;
+    color: red;
+    font-size: 13px;
+}

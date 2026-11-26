@@ -1,21 +1,21 @@
 "use client";
-
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
+import { useEffect, useState } from "react";
 const RestaurantHeader = () => {
   const [details, setDetails] = useState();
+  const pathName = usePathname();
   const router = useRouter();
-  const pathname = usePathname();
-
   useEffect(() => {
-    let data = localStorage.getItem("restaurantUser");
-    if (!data && pathname == "/restaurant/dashboard") {
+    const data = localStorage.getItem("restaurantUser");
+    if (!data && pathName == "/restaurant/dashboard") {
       router.push("/restaurant");
-    } else if (data && pathname == "/restaurant") {
+    } else if (data && pathName == "/restaurant") {
       router.push("/restaurant/dashboard");
-    } else {
+    }
+
+    if (data) {
       setDetails(JSON.parse(data));
     }
   }, []);
@@ -24,32 +24,25 @@ const RestaurantHeader = () => {
     localStorage.removeItem("restaurantUser");
     router.push("/restaurant");
   };
-
   return (
     <div className="header-wrapper">
       <div className="logo">
-        <img style={{ width: 100 }} src="/header.png" alt="Resto App" />
+        <img style={{ width: 100 }} src="/header.png" />
       </div>
-
       <ul>
         <li>
           <Link href="/">Home</Link>
         </li>
-
-        {details && details.name ? (
-          <>
-            <li>
-              <button onClick={logout}>Logout</button>
-            </li>
-            <li>
+        <li>
+          {details && details.name ? (
+            <>
               <Link href="/">Profile</Link>
-            </li>
-          </>
-        ) : (
-          <li>
+              <button onClick={logout}>Logout</button>
+            </>
+          ) : (
             <Link href="/">Login/Sign Up</Link>
-          </li>
-        )}
+          )}
+        </li>
       </ul>
     </div>
   );
