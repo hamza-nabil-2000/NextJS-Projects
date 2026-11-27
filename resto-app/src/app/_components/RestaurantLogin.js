@@ -1,20 +1,25 @@
-"use client";
-
 import { useState } from "react";
 
 const RestaurantLogin = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       setError(true);
+      return false;
     } else {
       setError(false);
     }
-
-    console.log(email, password);
+    let response = await fetch("/api/restaurant", {
+      method: "POST",
+      body: JSON.stringify({ email, password, login: true }),
+    });
+    response = await response.json();
+    if (response.success) {
+      alert("Login Successfull");
+    }
   };
 
   return (

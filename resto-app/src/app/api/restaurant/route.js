@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  await mongoose.connect(connectionStr);
+  await mongoose.connect(connectionStr);``
   const data = await restaurantSchema.find();
   console.log(data);
 
@@ -13,8 +13,18 @@ export async function GET() {
 
 export async function POST(request) {
   let payload = await request.json();
+  let result;
   await mongoose.connect(connectionStr);
-  let restaurant = new restaurantSchema(payload);
-  const result = await restaurant.save();
+
+  if (payload.login) {
+    result = await restaurantSchema.findOne({
+      email: payload.email,
+      password: payload.password,
+    });
+  } else {
+    const restaurant = new restaurantSchema(payload);
+    result = await restaurant.save();
+  }
+
   return NextResponse.json({ result, success: true });
 }
