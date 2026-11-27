@@ -1,50 +1,85 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-
 import { useEffect, useState } from "react";
+import { FiHome, FiUser, FiLogOut, FiLogIn } from "react-icons/fi";
+
 const RestaurantHeader = () => {
-  const [details, setDetails] = useState();
+  const [details, setDetails] = useState(null);
   const pathName = usePathname();
   const router = useRouter();
+
   useEffect(() => {
     const data = localStorage.getItem("restaurantUser");
-    if (!data && pathName == "/restaurant/dashboard") {
-      router.push("/restaurant");
-    } else if (data && pathName == "/restaurant") {
-      router.push("/restaurant/dashboard");
+
+    if (!data && pathName === "/restaurant/dashboard") {
+      router.replace("/restaurant");
+    } else if (data && pathName === "/restaurant") {
+      router.replace("/restaurant/dashboard");
     }
 
-    if (data) {
-      setDetails(JSON.parse(data));
-    }
-  }, []);
+    setDetails(data ? JSON.parse(data) : null);
+  }, [pathName, router]);
 
   const logout = () => {
     localStorage.removeItem("restaurantUser");
-    router.push("/restaurant");
+    setDetails(null);
+    router.replace("/restaurant");
   };
+
   return (
-    <div className="header-wrapper">
+    <header className="header-wrapper">
       <div className="logo">
-        <img style={{ width: 100 }} src="/header.png" />
+        <Link href="/">
+          <img src="/header.png" alt="Food Delivery Logo" />
+        </Link>
       </div>
-      <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
+
+      <nav className="restaurant-navbar">
+        <ul>
+          <li>
+            <Link
+              href="/"
+              className={`nav-link ${pathName === "/" ? "active" : ""}`}
+            >
+              <FiHome />
+              Home
+            </Link>
+          </li>
+
           {details && details.name ? (
             <>
-              <Link href="/">Profile</Link>
-              <button onClick={logout}>Logout</button>
+              <li>
+                <Link
+                  href="/restaurant/profile"
+                  className={`nav-link ${
+                    pathName === "/restaurant/profile" ? "active" : ""
+                  }`}
+                >
+                  <FiUser />
+                  Profile
+                </Link>
+              </li>
+
+              <li>
+                <button className="logout-btn" onClick={logout}>
+                  <FiLogOut />
+                  Logout
+                </button>
+              </li>
             </>
           ) : (
-            <Link href="/">Login/Sign Up</Link>
+            <li>
+              <Link href="/restaurant" className="login-btn">
+                <FiLogIn />
+                Login / Sign Up
+              </Link>
+            </li>
           )}
-        </li>
-      </ul>
-    </div>
+        </ul>
+      </nav>
+    </header>
   );
 };
 

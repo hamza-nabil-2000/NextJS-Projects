@@ -1,12 +1,14 @@
 :root {
   --form-control-width: 210px;
+  --primary-color: #e53935;
+  --primary-hover: #c62828;
 }
 
-* {
+body {
+  margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body,
 button,
 input,
 select,
@@ -14,22 +16,22 @@ textarea {
   font-family: inherit;
 }
 
+/* Form Controls */
+
 .input-wrapper {
   margin: 10px;
 }
 
-.input-field {
-  width: var(--form-control-width);
-  height: 36px;
-  padding: 4px;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  font-size: 13.3333px;
-}
-
+.input-field,
 .button {
   width: var(--form-control-width);
   height: 36px;
+  box-sizing: border-box;
+}
+
+.input-field {
+  padding: 4px;
+  font-size: 13.3333px;
 }
 
 .container {
@@ -38,15 +40,205 @@ textarea {
 
 textarea.input-field {
   resize: none;
-  height: 36px;
-  min-height: 36px;
   padding: 8px 4px;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  font-size: 13.3333px;
   line-height: 18px;
-  vertical-align: top;
-  white-space: pre-wrap;
   overflow-wrap: break-word;
   overflow: hidden;
+}
+
+/* Restaurant Header */
+
+.header-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80px;
+  padding: 10px 40px;
+  box-sizing: border-box;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 4px 15px rgb(0 0 0 / 5%);
+}
+
+/* Logo */
+
+.header-wrapper .logo,
+.header-wrapper .logo a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.header-wrapper .logo img {
+  display: block;
+  width: 100px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* Navigation */
+
+.restaurant-navbar ul {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.restaurant-navbar li {
+  display: flex;
+  align-items: center;
+}
+
+/* Common Navigation Styles */
+
+.restaurant-navbar .nav-link,
+.restaurant-navbar .logout-btn,
+.restaurant-navbar .login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 18px;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.restaurant-navbar svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Navigation Links */
+
+.restaurant-navbar .nav-link {
+  color: #333;
+}
+
+.restaurant-navbar .nav-link:hover,
+.restaurant-navbar .nav-link.active {
+  color: var(--primary-color);
+  background: #fff0ed;
+}
+
+/* Login and Logout Buttons */
+
+.restaurant-navbar .logout-btn,
+.restaurant-navbar .login-btn {
+  color: #fff;
+  background: var(--primary-color);
+}
+
+.restaurant-navbar .logout-btn:hover,
+.restaurant-navbar .login-btn:hover {
+  background: var(--primary-hover);
+}
+
+.restaurant-navbar a:focus-visible,
+.restaurant-navbar button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+}
+
+/* Mobile Responsive */
+
+@media (max-width: 600px) {
+  .header-wrapper {
+    min-height: 70px;
+    padding: 8px 12px;
+  }
+
+  .header-wrapper .logo img {
+    width: 65px;
+    height: 45px;
+  }
+
+  .restaurant-navbar ul {
+    gap: 4px;
+  }
+
+  .restaurant-navbar .nav-link,
+  .restaurant-navbar .logout-btn,
+  .restaurant-navbar .login-btn {
+    height: 36px;
+    padding: 0 8px;
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .restaurant-navbar svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.header-wrapper .logo img {
+  display: block;
+  width: 100px;
+  height: 60px;
+  object-fit: contain;
+  transform: translateY(-6px);
+}
+
+.price-input {
+  display: inline-flex;
+  align-items: center;
+  width: var(--form-control-width);
+  height: 36px;
+  border: 1px solid #767676;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.currency-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 10px;
+  background: #f2f2f2;
+  border-right: 1px solid #767676;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.price-input .input-field {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 8px;
+  border: none;
+  outline: none;
+}
+
+/* Chrome, Edge, Safari */
+.price-input input[type="number"]::-webkit-inner-spin-button,
+.price-input input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.price-input input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
 }
